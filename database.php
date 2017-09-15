@@ -105,7 +105,7 @@ class Database {
 	*/
 	private function build_insert_query(string $table, array $data) {
 		$keys = array_keys($data);
-		$prepared_values = $this->crate_placeholders($data);
+		$prepared_values = $this->crate_insert_placeholders($data);
 
 		$query = 'INSERT INTO ' . $table . '(' .implode(', ', $keys) . ')' . ' VALUES (' . implode(', ', $prepared_values) . ')';
 
@@ -162,6 +162,23 @@ class Database {
 	private function crate_placeholders($data) {
 		$placeholders = array();
 		foreach ($data as $key => $value) {
+			$placeholders[] = $key . ' = :' . $key;
+		}
+		return $placeholders;
+	}
+
+	/*
+	* Crate_insert_placeholders
+	*
+	* Create named placeholders for bind parameters for insert
+	*
+	* @param array $data
+	*
+	* @return array
+	*/
+	private function crate_insert_placeholders($data) {
+		$placeholders = array();
+		foreach ($data as $key => $value) {
 			$placeholders[] = ':' . $key;
 		}
 		return $placeholders;
@@ -184,7 +201,7 @@ class Database {
 		}
 		return $stmt;
 	}
-	
+
 	/*
 	* Execute_statement
 	*
@@ -276,7 +293,7 @@ class Database {
 	* @param array $ordering
 	* @param int $limit
 	*
-	* @return object
+	* @return array
 	*/
 	public function select(string $table, string $data, array $where = null, array $ordering = null, int $limit = null) {
 
@@ -290,14 +307,11 @@ class Database {
 
 		$stmt = $this->execute_statement($stmt);
 
-		if ($stmt->rowCount() > 0) {
-			$return_array = array();
-			for($i = 0; $i < $stmt->rowCount(); $i++) {
-				$return_array[] = $stmt->fetchObject();
-			}
-			return $return_array;
+		$return_array = array();
+		for($i = 0; $i < $stmt->rowCount(); $i++) {
+			$return_array[] = $stmt->fetchObject();
 		}
-		return false;
+		return $return_array;
 	}
 
 	/*
@@ -355,7 +369,7 @@ class Database {
 	*
 	* @return int|false
 	*/
-	public function update(string $table, string $data, array $where) {
+	public function update(string $table, array $data, array $where) {
 		$bind_params = array();
 		foreach ($data as $key => $value) {
 			$bind_params[$key] = $value;
