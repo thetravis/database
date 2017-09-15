@@ -4,6 +4,9 @@
 * Database Class
 *
 * Use PDO MySQL to connect and query database
+*
+* @TODO Return null instead of false. 
+*
 */
 
 class Database {
@@ -26,7 +29,7 @@ class Database {
 	}
 
 	/*
-	* Connect_to_database
+	* Connect
 	*
 	* Connect to database, select database, set error reporting and set charset
 	*/
@@ -50,7 +53,7 @@ class Database {
 	/*
 	* Disconnect
 	*
-	* Colse connection to database
+	* Close connection to database
 	*/
 	public function disconnect() {
 		$this->connection = NULL;
@@ -168,7 +171,7 @@ class Database {
 	}
 
 	/*
-	* Crate_insert_placeholders
+	* Create_insert_placeholders
 	*
 	* Create named placeholders for bind parameters for insert
 	*
@@ -361,7 +364,7 @@ class Database {
 	/*
 	* Update
 	*
-	* Update data to database and returns rows updated
+	* Update data to database and return rows updated
 	*
 	* @param string $table
 	* @param array $data

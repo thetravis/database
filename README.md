@@ -3,11 +3,17 @@ PHP MySQL PDO database class. Require PHP7 or class named Error for error handli
 All methods return PHP7 Error object in case of error.
 
 # Usage
-Create database object: $database = new Database($host, $dbname, $dbuser, $dbpass);
+Create database object: 
 
-Connect to database: $database->connect();
+> $database = new Database($host, $dbname, $dbuser, $dbpass);
 
-Disconnect from database (This intented to be called from class destructor): $database->disconnect();
+Connect to database:
+
+> $database->connect();
+
+Disconnect from database (this is intented to be called from class destructor): 
+
+> $database->disconnect();
 
 All statements support multiple where values. Returning object properties are named as coresponding database column name.
 
@@ -20,7 +26,7 @@ All statements support multiple where values. Returning object properties are na
 
 Get one value from database, where parameters should be unique. Return array containing objects
 
-$database->get_value($table, $value_name, array($where_key => $where_value));
+> $database->get_value($table, $value_name, array($where_key => $where_value));
 
 # get_row
 @param string $table
@@ -31,7 +37,7 @@ $database->get_value($table, $value_name, array($where_key => $where_value));
 
 Get one row from database, where parameters should be unique. Return object
 
-$database->get_row($table, $column_names, array($where_key => $where_value));
+> $database->get_row($table, $column_names, array($where_key => $where_value));
 
 # select
 @param string $table
@@ -46,18 +52,20 @@ $database->get_row($table, $column_names, array($where_key => $where_value));
 
 General select query, $where, $ordering and $limit are optional, if not set, null should be used. If using multiple directions, first is primary ordering, and so on.
 
-$database->select($table, $data, array($where_key => $where_value), array($column_name => $direction), $limit)
+> $database->select($table, $data, array($where_key => $where_value), array($column_name => $direction), $limit)
 
 # query
 @param string $query
 
 @param array $params
 
-General query, can be used in more complex queries like statemts with LIKE and different logical operators. Return exequted PDO statement-object
+General query, can be used in more complex queries like statemts with LIKE and different logical operators. Return executed PDO statement-object
 
-Example: $query = 'SELECT * FROM foobar WHERE foo != :foo AND (bar > :bar OR foobar LIKE :foobar)';
+Example: 
 
-$database->query($query, $params);
+> $query = 'SELECT * FROM foobar WHERE foo != :foo AND (bar > :bar OR foobar LIKE :foobar)';
+
+> $database->query($query, $params);
 
 # insert
 @param string $table
@@ -66,7 +74,7 @@ $database->query($query, $params);
 
 Insert data to table, return insert id
 
-$database->insert($table, array($key => $value));
+> $database->insert($table, array($key => $value));
 
 # update
 @param string $table
@@ -77,7 +85,7 @@ $database->insert($table, array($key => $value));
 
 Update data, return number of rows updated
 
-$database->update($table, array($key => $value), array($where_key => $where_value));
+> $database->update($table, array($key => $value), array($where_key => $where_value));
 
 # delete
 @param string $table
@@ -86,4 +94,4 @@ $database->update($table, array($key => $value), array($where_key => $where_valu
 
 Delete data, return number of rows deleted
 
-$database->delete($table, array($where_key => $where_value));
+> $database->delete($table, array($where_key => $where_value));
