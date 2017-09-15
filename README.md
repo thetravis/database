@@ -7,7 +7,7 @@ Create database object: $database = new Database($host, $dbname, $dbuser, $dbpas
 
 Connect to database: $database->connect();
 
-Discoonect from database (call this from class destructor): $database->disconnect();
+Disconnect from database (This intented to be called from class destructor): $database->disconnect();
 
 All statements support multiple where values. Returning object properties are named as coresponding database column name.
 
