@@ -1,5 +1,5 @@
 # database
-PHP PDO database object for PHP7
+PHP MySQL PDO database class. Require PHP7 or class named Error for error handling.
 All methods return PHP7 Error object in case of error.
 
 # Usage
